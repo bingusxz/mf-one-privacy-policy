@@ -1,86 +1,298 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - MF One</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-        }
-        header {
-            background: #50b3a2;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        section {
-            background: #fff;
-            padding: 20px;
-            margin: 20px 0;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Responsive Page</title>
+  <meta name="description" content="A simple responsive webpage with pure HTML, CSS, and JS." />
+  <style>
+    /* --------------------------------------
+       Base styles and theme variables
+       -------------------------------------- */
+    :root {
+      --bg: #0f172a;           /* Slate 900 */
+      --surface: #111827;      /* Gray 900 */
+      --text: #e5e7eb;         /* Gray 200 */
+      --muted: #9ca3af;        /* Gray 400 */
+      --primary: #22d3ee;      /* Cyan 400 */
+      --accent: #a78bfa;       /* Violet 400 */
+      --card: #1f2937;         /* Gray 800 */
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius: 12px;
+      --maxw: 1100px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(167, 139, 250, 0.15), transparent 60%),
+        radial-gradient(1000px 500px at 110% 10%, rgba(34, 211, 238, 0.12), transparent 60%),
+        var(--bg);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; }
+    .container {
+      width: 100%;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* --------------------------------------
+       Header and navigation bar
+       -------------------------------------- */
+    header {
+      position: sticky;
+      top: 0;
+      backdrop-filter: saturate(140%) blur(6px);
+      background: rgba(17, 24, 39, 0.7);
+      border-bottom: 1px solid var(--border);
+      z-index: 10;
+    }
+    .nav {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+    .brand-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.15);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+    }
+    nav a {
+      padding: 8px 12px;
+      border-radius: 8px;
+      color: var(--muted);
+      transition: color 200ms ease, background-color 200ms ease, transform 120ms ease;
+    }
+    nav a:hover, nav a:focus-visible {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+    }
+    nav a:active { transform: translateY(1px); }
+
+    /* --------------------------------------
+       Hero section
+       -------------------------------------- */
+    .hero { padding: clamp(48px, 8vw, 96px) 0; }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: center;
+      text-align: center;
+    }
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw + 1rem, 3.25rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #f3f4f6; /* gray-100 */
+      text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+    }
+    .subtitle {
+      max-width: 60ch;
+      margin: 8px auto 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 1vw + 0.6rem, 1.125rem);
+    }
+    .cta-row {
+      display: inline-flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      appearance: none;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 200ms ease, background 200ms ease, color 200ms ease;
+      will-change: transform;
+    }
+    .btn-primary {
+      color: #0b1220;
+      background: linear-gradient(180deg, color-mix(in oklab, var(--primary), white 18%), var(--primary));
+      box-shadow: 0 10px 20px rgba(34, 211, 238, 0.25), inset 0 0 0 1px rgba(255,255,255,0.28);
+    }
+    .btn-primary:hover, .btn-primary:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 24px rgba(34, 211, 238, 0.35), inset 0 0 0 1px rgba(255,255,255,0.35);
+    }
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+    .btn-secondary:hover, .btn-secondary:focus-visible {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-1px);
+    }
+
+    /* --------------------------------------
+       Footer
+       -------------------------------------- */
+    footer {
+      border-top: 1px solid var(--border);
+      background: rgba(17,24,39,0.7);
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 24px 0;
+      flex-wrap: wrap;
+    }
+    .small { color: var(--muted); font-size: 0.95rem; }
+
+    /* --------------------------------------
+       Responsive tweaks
+       -------------------------------------- */
+    @media (min-width: 900px) {
+      .hero-inner { grid-template-columns: 1.1fr; }
+    }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Enable smooth scrolling */
+    html { scroll-behavior: smooth; }
+  </style>
+  <!--
+    Note: This page is fully self-contained. No external libraries are used.
+  -->
+  
 </head>
-<body>
-    <header>
-        <h1>Privacy Policy for MF One</h1>
-    </header>
-    <div class="container">
-        <section>
-            <h2>Introduction</h2>
-            <p>Mandaue Foam values your privacy and is committed to protecting your personal data. This Privacy Policy outlines how we collect, use, and safeguard the information you provide when using the MF One app. This app is intended exclusively for employees of Mandaue Foam.</p>
-            
-            <h2>1. Eligibility</h2>
-            <p>The MF One app is exclusively for use by employees of Mandaue Foam. By using this app, you confirm that you are an employee of Mandaue Foam. Unauthorized use by non-employees is strictly prohibited and may result in legal action.</p>
-            
-            <h2>2. Information We Collect</h2>
-            <h3>a. Personal Information</h3>
-            <p>Employee Information: When you register and use the MF One app, we may collect information such as your name, employee ID, department, and contact details.</p>
-            <p>Authentication Data: To ensure secure access, we may collect authentication data such as usernames and passwords.</p>
-            
-            <h3>b. Usage Data</h3>
-            <p>App Usage: We collect information on how you interact with the app, including access times, features used, and pages viewed.</p>
-            <p>Device Information: We collect data about the device you use to access the app, including device type, operating system, and IP address.</p>
-            
-            <h2>3. How We Use Your Information</h2>
-            <p>To Provide and Improve the Service: We use your information to operate and enhance the MF One app, ensuring it meets the needs of Mandaue Foam employees.</p>
-            <p>Security and Compliance: We use your data to protect against unauthorized access, and to comply with legal obligations.</p>
-            <p>Communication: We may use your contact information to send important updates and information related to the app.</p>
-            
-            <h2>4. Data Security</h2>
-            <p>We implement robust security measures to protect your data from unauthorized access, alteration, or disclosure. Access to the MF One app is restricted to authorized employees only, and we use encryption and other security technologies to safeguard your information.</p>
-            
-            <h2>5. Data Sharing</h2>
-            <p>Internal Use: Your data may be shared internally within Mandaue Foam to improve app functionality and user experience.</p>
-            <p>Third-Party Services: We may use third-party services for app analytics and other purposes, but only with services that comply with our privacy standards.</p>
-            <p>Legal Requirements: We may disclose your data if required by law or in response to valid requests by public authorities.</p>
-            
-            <h2>6. User Rights</h2>
-            <p>As a user of the MF One app, you have the right to:</p>
-            <p>Access Your Data: Request access to the personal data we hold about you.</p>
-            <p>Correct Your Data: Request correction of any inaccuracies in your personal data.</p>
-            <p>Delete Your Data: Request deletion of your personal data, subject to certain conditions.</p>
-            
-            <h2>7. Changes to This Privacy Policy</h2>
-            <p>We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any significant changes through the app or other appropriate means.</p>
-            
-            <h2>8. Contact Us</h2>
-            <p>If you have any questions or concerns about this Privacy Policy or the MF One app, please contact the IT department at:</p>
-            <p><strong>Mandaue Foam</strong><br>
-            Hernan Cortes St., Tipolo, Mandaue City<br>
-            deanyankeejabili.mf@gmail.com<br>
-            +639231149399</p>
-        </section>
+<body id="top">
+  <!-- --------------------------------------
+       Header with navigation
+       -------------------------------------- -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>Acme</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#footer">Contact</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
+
+  <!-- --------------------------------------
+       Main content
+       -------------------------------------- -->
+  <main id="home">
+    <section class="hero container" aria-labelledby="hero-title">
+      <span class="eyebrow">Pure HTML • CSS • JS</span>
+      <div class="hero-inner">
+        <div>
+          <h1 id="hero-title">Build modern, responsive sites with no dependencies</h1>
+          <p class="subtitle">
+            This starter shows a clean layout with a sticky header, a gradient hero, and a tiny script to enhance interaction. Resize to see it adapt.
+          </p>
+          <div class="cta-row">
+            <button id="ctaButton" class="btn btn-primary" type="button">Scroll to footer</button>
+            <a class="btn btn-secondary" href="#features">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Placeholder section to demonstrate scrolling -->
+    <section id="features" class="container" aria-labelledby="features-title" style="padding: 32px 0 64px;">
+      <h2 id="features-title" style="margin: 0 0 12px; font-size: clamp(1.25rem, 1.2vw + 1rem, 1.75rem); letter-spacing: -0.01em;">Features</h2>
+      <ul style="margin: 0; padding-left: 18px; color: var(--muted); display: grid; gap: 8px;">
+        <li>Semantic HTML structure for accessibility</li>
+        <li>Responsive layout with CSS Grid and Flexbox</li>
+        <li>Modern theming via CSS variables and gradients</li>
+        <li>Hover and focus-visible effects for interactivity</li>
+        <li>Smooth scroll to footer via a small script</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- --------------------------------------
+       Footer
+       -------------------------------------- -->
+  <footer id="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <span class="small">© <span id="year"></span> Acme Co. All rights reserved.</span>
+      <a href="#top" class="small" aria-label="Back to top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- --------------------------------------
+       Small JavaScript enhancements
+       -------------------------------------- -->
+  <script>
+    // Update the footer year dynamically
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scroll to footer when the primary CTA is clicked
+    const scrollButton = document.getElementById('ctaButton');
+    const footer = document.getElementById('footer');
+
+    function scrollToFooter() {
+      // If user prefers reduced motion, jump instantly
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) {
+        footer.scrollIntoView();
+        return;
+      }
+      footer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    scrollButton.addEventListener('click', scrollToFooter);
+  </script>
 </body>
 </html>
